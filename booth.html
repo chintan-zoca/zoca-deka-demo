@@ -150,27 +150,32 @@
   }
 
   .qr-wrap { position: relative; }
-  @property --ga {
-    syntax: '<angle>';
-    initial-value: 140deg;
-    inherits: false;
-  }
   .qr-glow {
     position: absolute;
-    inset: -26px;
-    border-radius: 44px;
-    background: conic-gradient(from var(--ga), var(--ai-pink), var(--ai-purple), var(--ai-violet), var(--ai-pink));
-    filter: blur(34px);
-    opacity: 0.65;
+    inset: -52px;
+    border-radius: 62% 38% 56% 44% / 42% 60% 40% 58%;
+    background: conic-gradient(from 140deg, var(--ai-pink), var(--ai-purple), var(--ai-violet), var(--ai-pink));
+    filter: blur(32px);
+    opacity: 0.6;
     z-index: 0;
-    animation: glowSpin 16s linear infinite, glowPulse 7s ease-in-out infinite;
+    animation:
+      blobSpin 36s linear infinite,
+      blobMorph 13s ease-in-out infinite alternate,
+      glowPulse 9s ease-in-out infinite;
   }
-  @keyframes glowSpin {
-    to { --ga: 500deg; }
+  @keyframes blobSpin {
+    0% { transform: rotate(0turn) scale(1); }
+    50% { transform: rotate(0.5turn) scale(1.06); }
+    100% { transform: rotate(1turn) scale(1); }
+  }
+  @keyframes blobMorph {
+    0% { border-radius: 62% 38% 56% 44% / 42% 60% 40% 58%; }
+    50% { border-radius: 42% 58% 46% 54% / 58% 42% 60% 40%; }
+    100% { border-radius: 54% 46% 40% 60% / 46% 58% 42% 54%; }
   }
   @keyframes glowPulse {
-    0%, 100% { opacity: 0.42; transform: scale(0.98); }
-    50% { opacity: 0.78; transform: scale(1.04); }
+    0%, 100% { opacity: 0.48; }
+    50% { opacity: 0.72; }
   }
   .qr-card {
     position: relative;
