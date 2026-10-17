@@ -100,27 +100,10 @@
     white-space: nowrap;
   }
 
-  .qr-wrap { position: relative; }
-  .qr-wrap::before,
-  .qr-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    border: 2.5px solid var(--magenta);
-    opacity: 0;
-    pointer-events: none;
-    animation: ring 5s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
-  }
-  .qr-wrap::after {
-    border-color: var(--violet);
-    animation-delay: 2.5s;
-  }
-  @keyframes ring {
-    0% { transform: scale(1.03); opacity: 0; }
-    10% { opacity: 0.8; }
-    55% { transform: scale(1.22); opacity: 0; }
-    100% { transform: scale(1.22); opacity: 0; }
+  .qr-wrap { position: relative; animation: float 6s ease-in-out infinite; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
   }
   .qr-card {
     position: relative;
@@ -129,7 +112,15 @@
     background: var(--warm);
     border-radius: 24px;
     padding: clamp(14px, 4vw, 20px);
+    border: 5px solid var(--magenta);
+    animation: frame 16s linear infinite;
     box-shadow: 0 30px 70px -18px rgba(0, 0, 0, 0.6);
+  }
+  @keyframes frame {
+    0%, 100% { border-color: var(--magenta); }
+    25% { border-color: var(--orange); }
+    50% { border-color: var(--yellow); }
+    75% { border-color: var(--violet); }
   }
   .qr-card > svg { display: block; width: 100%; height: auto; }
   .qr-badge {
