@@ -3,314 +3,328 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#6C4CF5" />
-<title>Zoca Front Desk — Demo</title>
+<meta name="theme-color" content="#1A1046" />
+<title>Zoca · AI Front Desk — Live Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
     --white: #FFFFFF;
-    --gray-100: #F4F4F5;
-    --gray-200: #E7E7E7;
-    --gray-400: #B2B2B2;
-    --gray-600: #666666;
-    --gray-900: #222222;
-    --violet-100: #FAF8FF;
-    --violet-200: #EEE7FF;
+    --cream: #FFF3E9;
+    --ink: #1A1046;
     --violet-600: #6C4CF5;
     --violet-700: #5A3BE8;
     --violet-900: #24185F;
-    --neutral-200: #E7E3F3;
-    --radius-card: 16px;
-    --radius-control: 8px;
-    --shadow-sm: 0 1px 2px rgba(23,24,95,0.06), 0 1px 1px rgba(23,24,95,0.04);
-    --shadow-md: 0 8px 24px rgba(36,24,95,0.08), 0 2px 6px rgba(36,24,95,0.06);
-    --shadow-ai: -12px 12px 40px 2px rgba(139,109,255,0.14), 12px -12px 40px 2px rgba(255,139,192,0.14);
+    --ai-pink: #FF8BC0;
+    --ai-purple: #C37CFF;
+    --ai-violet: #8B6DFF;
+    --ai-gradient: linear-gradient(90deg, var(--ai-pink) 0%, var(--ai-purple) 50%, var(--ai-violet) 100%);
   }
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: var(--violet-100);
-    color: var(--gray-900);
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(70% 45% at 15% 0%, rgba(255,139,192,0.22) 0%, transparent 65%),
+      radial-gradient(60% 42% at 90% 12%, rgba(139,109,255,0.35) 0%, transparent 65%),
+      radial-gradient(85% 55% at 50% 105%, rgba(108,76,245,0.45) 0%, transparent 70%),
+      linear-gradient(180deg, var(--ink) 0%, var(--violet-900) 100%);
+    color: var(--white);
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     overscroll-behavior: none;
+    padding: max(14px, env(safe-area-inset-top)) 20px max(14px, env(safe-area-inset-bottom));
   }
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
-    padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
-  }
-  .brand {
+
+  .top {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 10px;
   }
-  .brand-mark {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: 0.08em;
-    color: var(--violet-600);
-    text-transform: uppercase;
-  }
-  .brand-sub {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
+  .logo { width: clamp(100px, 28vw, 140px); height: auto; display: block; }
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-size: 12px;
-    color: var(--gray-600);
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--cream);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    padding: 6px 14px;
+    backdrop-filter: blur(4px);
   }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ai-pink);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,139,192,0.55); }
+    50% { box-shadow: 0 0 0 7px rgba(255,139,192,0); }
+  }
+
   main {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 24px;
-    padding: 24px 0;
+    gap: clamp(10px, 2dvh, 20px);
+    padding: 10px 0;
+    width: 100%;
   }
-  .headline-wrap {
-    text-align: center;
-    max-width: 440px;
-  }
-  .eyebrow {
-    display: inline-block;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 11px;
-    color: var(--violet-700);
-    background: var(--violet-200);
-    padding: 6px 10px;
-    border-radius: 999px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+
+  .flow { display: none; flex-direction: column; align-items: center; gap: clamp(10px, 2dvh, 18px); width: 100%; }
+  .flow.active { display: flex; }
+
   .headline {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 1.2;
-    color: var(--gray-900);
-    margin: 0;
+    font-weight: 800;
+    font-size: clamp(25px, 7vw, 38px);
+    line-height: 1.12;
+    text-align: center;
+    color: var(--white);
+    max-width: 480px;
   }
-  .headline em {
-    font-style: normal;
-    color: var(--violet-600);
+  .headline .grad {
+    background: var(--ai-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .subhead {
-    margin-top: 10px;
+    display: block;
+    margin-top: 8px;
     font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: var(--gray-600);
-    line-height: 1.6;
+    font-size: clamp(13px, 3.6vw, 15px);
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: -0.02em;
+    color: rgba(255,243,233,0.85);
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .qr-wrap { position: relative; }
+  .qr-glow {
+    position: absolute;
+    inset: -26px;
+    border-radius: 44px;
+    background: conic-gradient(from 140deg, var(--ai-pink), var(--ai-purple), var(--ai-violet), var(--ai-pink));
+    filter: blur(34px);
+    opacity: 0.65;
+    z-index: 0;
   }
   .qr-card {
-    width: min(78vw, 360px);
-    aspect-ratio: 1;
-    background: var(--white);
-    border: 1px solid var(--neutral-200);
-    border-radius: var(--radius-card);
-    padding: 20px;
-    display: grid;
-    place-items: center;
-    box-shadow: var(--shadow-md);
     position: relative;
-    overflow: hidden;
+    z-index: 1;
+    width: min(62vw, 34dvh, 300px);
+    background: var(--white);
+    border-radius: 24px;
+    padding: clamp(14px, 4vw, 20px);
+    box-shadow: 0 30px 70px -18px rgba(0,0,0,0.55);
   }
-  .qr-card::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    pointer-events: none;
-    box-shadow: var(--shadow-ai);
-    opacity: 0;
-    transition: opacity 240ms ease;
-  }
-  .qr-card.is-active::before { opacity: 1; }
-  .qr-slot {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-  }
-  .qr-slot svg, .qr-slot canvas { width: 100%; height: auto; max-width: 100%; max-height: 100%; display: block; }
-  .instruction {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 13px;
-    color: var(--gray-600);
+  .qr-card svg { display: block; width: 100%; height: auto; }
+
+  .cta { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .cta-main {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(17px, 5vw, 21px);
+    color: var(--white);
     text-align: center;
   }
+  .cta-main strong {
+    font-weight: 800;
+    background: var(--ai-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
+  }
+  .cta-sub { font-size: clamp(13px, 3.7vw, 15px); font-weight: 500; color: rgba(255,243,233,0.75); text-align: center; }
+
+  .steps { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .step {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    padding: 8px 13px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  .step b {
+    display: inline-grid;
+    place-items: center;
+    width: 19px; height: 19px;
+    border-radius: 50%;
+    background: var(--ai-gradient);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 800;
+    font-style: normal;
+  }
+
   .toggle {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    width: min(90vw, 420px);
-    background: var(--white);
-    border: 1px solid var(--neutral-200);
+    width: min(100%, 440px);
+    margin: 0 auto;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
     border-radius: 999px;
-    padding: 4px;
-    box-shadow: var(--shadow-sm);
+    padding: 5px;
+    backdrop-filter: blur(6px);
   }
   .toggle button {
     appearance: none;
     border: 0;
     background: transparent;
-    color: var(--gray-900);
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: -0.02em;
-    padding: 12px 16px;
+    color: rgba(255,243,233,0.78);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    padding: 12px 10px;
     border-radius: 999px;
     cursor: pointer;
-    transition: background 200ms ease, color 200ms ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 44px;
+    min-height: 48px;
+    transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
   }
   .toggle button[aria-pressed="true"] {
-    background: var(--violet-600);
-    color: var(--white);
+    background: var(--white);
+    color: var(--violet-700);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
   }
-  .toggle button:focus-visible {
-    outline: 2px solid var(--violet-600);
-    outline-offset: 2px;
-  }
+  .icon { width: 17px; height: 17px; flex: none; }
+
   .footnote {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    color: var(--gray-400);
+    margin-top: 10px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: rgba(255,243,233,0.45);
     text-align: center;
-    margin-top: 12px;
-    letter-spacing: 0.02em;
-  }
-  /* icons */
-  .icon { width: 16px; height: 16px; stroke-width: 2; }
-  @media (min-width: 768px) {
-    .headline { font-size: 36px; }
-    .qr-card { width: min(60vw, 420px); }
+    letter-spacing: 0.03em;
   }
 </style>
 </head>
 <body>
-  <header class="brand">
-    <div class="brand-mark">Zoca</div>
-    <div class="brand-sub">Front Desk · Live Demo</div>
+  <header class="top">
+    <svg class="logo" role="img" aria-label="Zoca" width="140" height="35" viewBox="0 0 140 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1414_2)">
+<path d="M122.892 0.0139304C113.484 0.0139304 105.849 7.62214 105.789 17.0285C105.73 26.51 113.537 34.2664 123.005 34.2664H139.593C139.816 34.2664 139.998 34.085 139.998 33.8616V17.139C139.998 7.67965 132.341 0.0117188 122.892 0.0117188V0.0139304ZM136.255 30.6082C136.185 30.679 136.092 30.7144 135.999 30.7144C135.919 30.7144 135.84 30.6879 135.771 30.6348L128.174 24.5681C126.754 25.6054 125.02 26.2424 123.145 26.3065C117.985 26.4857 113.794 22.4891 113.734 17.3182C113.674 12.2048 117.825 8.04679 122.932 8.10651C128.094 8.16622 132.086 12.3596 131.909 17.5261C131.845 19.406 131.211 21.1422 130.173 22.5643L136.28 30.1195C136.397 30.2632 136.386 30.4733 136.253 30.606L136.255 30.6082Z" fill="#FFF3E9"/>
+<path d="M118.906 15.4441C118.09 16.8375 118.059 17.9854 117.484 18.4963C117.13 18.8103 116.584 18.7484 116.296 18.3724C115.434 17.2466 115.987 15.5613 116.318 14.659C116.708 13.5996 117.197 12.8299 118.068 12.0492C119.057 11.1645 120.178 10.7929 121.016 11.3857C121.956 12.3301 120.034 13.5177 118.906 15.4463V15.4441Z" fill="#FFF3E9"/>
+<path d="M51.5794 0C42.1244 0 34.4609 7.67457 34.4609 17.1406C34.4609 26.6066 42.1244 34.2812 51.5794 34.2812C61.0344 34.2812 68.6979 26.6066 68.6979 17.1406C68.6979 7.67457 61.0322 0 51.5794 0ZM51.5794 25.2885C47.0897 25.2885 43.4404 21.6325 43.4404 17.1406C43.4404 12.6487 47.0919 8.99273 51.5794 8.99273C56.0669 8.99273 59.7162 12.6487 59.7162 17.1406C59.7162 21.6325 56.0647 25.2885 51.5794 25.2885Z" fill="#FFF3E9"/>
+<path d="M96.0001 21.4844C94.578 23.769 92.092 25.2885 89.1107 25.2885C85.6007 25.2885 82.6017 23.0524 81.4626 19.9273C81.1442 19.0581 80.9694 18.1204 80.9694 17.1406C80.9694 16.1608 81.1442 15.2231 81.4626 14.3539C82.6017 11.2288 85.7025 8.99273 89.1107 8.99273C91.9969 8.99273 94.5359 10.5033 95.9824 12.7791L103.765 8.26951C100.786 3.3109 95.4074 0 89.1107 0C81.7148 0 75.4137 4.69984 73.0206 11.2752C72.3549 13.1043 71.9922 15.0815 71.9922 17.1406C71.9922 19.1997 72.3549 21.1769 73.0206 23.006C75.4137 29.5858 81.8165 34.2812 89.1107 34.2812C95.3322 34.2812 100.78 30.9548 103.776 25.9851L96.0001 21.4866V21.4844Z" fill="#FFF3E9"/>
+<path d="M31.6227 9.24192L13.7567 24.5159C13.5466 24.695 13.6727 25.04 13.9491 25.04H31.3264C31.49 25.04 31.6227 25.1727 31.6227 25.3386V33.4621C31.6227 33.6258 31.49 33.7607 31.3264 33.7607H0.296367C0.132701 33.7607 0 33.628 0 33.4621V25.0489C0 25.0489 0 25.0444 0.00221169 25.0422L17.8682 9.76388C18.0784 9.58473 17.9523 9.23971 17.6758 9.23971H0.296367C0.132701 9.23971 0 9.10701 0 8.94113V0.822016C0 0.658351 0.132701 0.523438 0.296367 0.523438H31.3264C31.49 0.523438 31.6227 0.656139 31.6227 0.822016V9.23307C31.6227 9.23307 31.6227 9.2375 31.6205 9.23971L31.6227 9.24192Z" fill="#FFF3E9"/>
+</g>
+<defs>
+<clipPath id="clip0_1414_2">
+<rect width="140" height="34.2812" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+    <div class="live-pill"><span class="live-dot"></span>Live demo · Try it now</div>
   </header>
 
   <main>
-    <div class="headline-wrap">
-      <span class="eyebrow" id="eyebrow">Flow A</span>
-      <h1 class="headline" id="headline"><em>Call</em> our Deka receptionist</h1>
-      <p class="subhead" id="subhead">Point your phone's camera at the code to try the AI front desk.</p>
-    </div>
+    <!-- Flow A: call the agent -->
+    <section class="flow active" id="flow-call">
+      <h1 class="headline">Talk to the AI <span class="grad">front desk</span><span class="subhead">Answers every call 24/7 and books straight into Mindbody.</span></h1>
+      <div class="qr-wrap">
+        <div class="qr-glow"></div>
+        <div class="qr-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h29v29H0z"/><path stroke="#000000" d="M4 4.5h7m3 0h3m1 0h7M4 5.5h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m7 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m4 0h1m2 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h7M13 11.5h1M4 12.5h1m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m3 0h1m2 0h1M7 13.5h1m3 0h2m1 0h2m4 0h1m2 0h2M4 14.5h2m2 0h4m2 0h2m2 0h1m2 0h4M4 15.5h3m1 0h1m2 0h1m1 0h4m1 0h2m3 0h1M4 16.5h1m2 0h9m1 0h3m3 0h2M12 17.5h4m3 0h2m1 0h1m1 0h1M4 18.5h7m2 0h2m1 0h3m1 0h1m1 0h3M4 19.5h1m5 0h1m4 0h1m2 0h2m1 0h1M4 20.5h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m3 0h2m1 0h2M4 21.5h1m1 0h3m1 0h1m3 0h5m2 0h3M4 22.5h1m1 0h3m1 0h1m1 0h1m5 0h1m1 0h1m3 0h1M4 23.5h1m5 0h1m2 0h1m1 0h1m4 0h2m1 0h1M4 24.5h7m1 0h1m1 0h1m3 0h1m4 0h2"/></svg></div>
+      </div>
+      <div class="cta">
+        <div class="cta-main">Scan to call <strong>(808) 556-4469</strong></div>
+        <div class="cta-sub">Ask to book a lash fill, any day, any time.</div>
+      </div>
+      <div class="steps">
+        <span class="step"><b>1</b> Scan &amp; call</span>
+        <span class="step"><b>2</b> Book a service</span>
+        <span class="step"><b>3</b> Watch the iPad</span>
+      </div>
+    </section>
 
-    <div class="qr-card is-active">
-      <div class="qr-slot" id="qr-slot" aria-live="polite"></div>
-    </div>
-
-    <p class="instruction" id="instruction">Scan to dial <strong>+1 808-556-4469</strong></p>
+    <!-- Flow B: booking site / abandoned cart -->
+    <section class="flow" id="flow-book">
+      <h1 class="headline">Walk away, it <span class="grad">follows up</span><span class="subhead">Start a booking, abandon it. Zoca texts you to finish the job.</span></h1>
+      <div class="qr-wrap">
+        <div class="qr-glow"></div>
+        <div class="qr-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h41v41H0z"/><path stroke="#000000" d="M4 4.5h7m4 0h1m1 0h3m1 0h3m1 0h3m2 0h7M4 5.5h1m5 0h1m1 0h1m2 0h1m2 0h3m1 0h2m2 0h2m2 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m2 0h1m2 0h3m1 0h4m6 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m3 0h1m2 0h2m1 0h3m1 0h1m2 0h1m2 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h3m2 0h2m1 0h1m1 0h1m1 0h1m1 0h2m2 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m3 0h2m2 0h3m1 0h4m1 0h2m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M15 11.5h1m1 0h3m1 0h3m1 0h4M4 12.5h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h2m2 0h2m1 0h1m4 0h1m2 0h1M5 13.5h1m2 0h2m5 0h1m1 0h1m2 0h2m6 0h4m3 0h2M7 14.5h1m2 0h1m1 0h4m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m2 0h3M4 15.5h4m1 0h1m3 0h1m1 0h4m1 0h4m1 0h2m1 0h1m1 0h1m1 0h1m3 0h1M5 16.5h1m3 0h2m2 0h2m3 0h3m1 0h1m1 0h1m1 0h5m2 0h1m1 0h1M9 17.5h1m3 0h1m2 0h5m1 0h3m3 0h3m2 0h1m2 0h1M4 18.5h1m1 0h2m1 0h3m2 0h3m2 0h2m1 0h4m3 0h1m1 0h3m1 0h2M4 19.5h2m3 0h1m4 0h1m2 0h2m1 0h3m1 0h2m1 0h2m1 0h1m4 0h1M7 20.5h1m2 0h4m2 0h1m2 0h3m1 0h4m1 0h3M4 21.5h6m1 0h8m3 0h1m1 0h1m3 0h4m3 0h2M7 22.5h1m1 0h5m1 0h1m4 0h2m3 0h1m4 0h1m3 0h3M4 23.5h3m1 0h2m3 0h1m1 0h1m1 0h2m8 0h1m3 0h2m2 0h2M4 24.5h1m5 0h1m1 0h1m2 0h1m1 0h2m8 0h2m1 0h1m2 0h1M5 25.5h2m1 0h1m2 0h4m4 0h1m1 0h1m1 0h1m4 0h3m2 0h1m1 0h2M4 26.5h1m1 0h3m1 0h2m2 0h1m1 0h2m10 0h1m1 0h1m1 0h5M5 27.5h2m2 0h1m1 0h3m3 0h3m1 0h1m1 0h1m1 0h4m1 0h1m2 0h1m1 0h2M4 28.5h1m3 0h1m1 0h1m1 0h7m1 0h2m2 0h2m2 0h5m2 0h1M12 29.5h1m1 0h1m5 0h2m2 0h5m3 0h2m2 0h1M4 30.5h7m2 0h2m2 0h2m3 0h1m3 0h3m1 0h1m1 0h1m1 0h3M4 31.5h1m5 0h1m2 0h3m1 0h1m1 0h4m1 0h3m1 0h1m3 0h1m3 0h1M4 32.5h1m1 0h3m1 0h1m1 0h1m4 0h1m2 0h1m1 0h3m1 0h1m1 0h6m1 0h1M4 33.5h1m1 0h3m1 0h1m2 0h1m1 0h2m2 0h2m1 0h3m1 0h2m4 0h1m1 0h3M4 34.5h1m1 0h3m1 0h1m1 0h5m2 0h2m1 0h5m5 0h3m1 0h1M4 35.5h1m5 0h1m2 0h1m1 0h4m1 0h2m2 0h2m1 0h2m1 0h1m1 0h1m2 0h1M4 36.5h7m1 0h2m3 0h3m1 0h1m1 0h3m1 0h4m1 0h1m2 0h2"/></svg></div>
+      </div>
+      <div class="cta">
+        <div class="cta-main">Scan to open the <strong>booking site</strong></div>
+        <div class="cta-sub">Pick a service, enter your number, then close the tab.</div>
+      </div>
+      <div class="steps">
+        <span class="step"><b>1</b> Scan &amp; pick</span>
+        <span class="step"><b>2</b> Close the tab</span>
+        <span class="step"><b>3</b> Get the text</span>
+      </div>
+    </section>
   </main>
 
   <nav class="toggle" role="tablist" aria-label="Pick a demo flow">
-    <button type="button" id="btn-call" role="tab" aria-pressed="true" aria-controls="qr-slot">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <button type="button" id="btn-call" aria-pressed="true">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       Call the agent
     </button>
-    <button type="button" id="btn-book" role="tab" aria-pressed="false" aria-controls="qr-slot">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Try the booking site
+    <button type="button" id="btn-book" aria-pressed="false">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Booking site
     </button>
   </nav>
 
-  <p class="footnote">Scanning this does not create a real appointment · Zoca sandbox</p>
+  <p class="footnote">Sandbox demo · nothing here creates a real appointment</p>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
 (function () {
-  var slot = document.getElementById('qr-slot');
-  var headline = document.getElementById('headline');
-  var subhead = document.getElementById('subhead');
-  var eyebrow = document.getElementById('eyebrow');
-  var instruction = document.getElementById('instruction');
   var btnCall = document.getElementById('btn-call');
   var btnBook = document.getElementById('btn-book');
+  var flowCall = document.getElementById('flow-call');
+  var flowBook = document.getElementById('flow-book');
 
-  var FLOWS = {
-    call: {
-      value: 'tel:+18085564469',
-      eyebrow: 'Flow A · Voice',
-      headline: '<em>Call</em> our Deka receptionist',
-      subhead: "Your phone opens the dialer. Tap call. Say you'd like to book a lash fill. Watch the iPad.",
-      instruction: 'Scan to dial <strong>+1 808-556-4469</strong>'
-    },
-    book: {
-      value: 'https://chintan-zoca.github.io/zoca-deka-demo/',
-      eyebrow: 'Flow B · Abandoned cart',
-      headline: '<em>Try</em> the booking site',
-      subhead: "Open our mock Deka Green Tree site. Pick a service, enter your number, then close the tab.",
-      instruction: 'Scan to open <strong>chintan-zoca.github.io/zoca-deka-demo</strong>'
-    }
-  };
-
-  function render(flowKey) {
-    var flow = FLOWS[flowKey];
-    slot.innerHTML = '';
-    var size = Math.min(slot.clientWidth, slot.clientHeight) || 320;
-    QRCode.toCanvas(flow.value, {
-      width: size,
-      margin: 1,
-      errorCorrectionLevel: 'M',
-      color: { dark: '#171717', light: '#FFFFFF' }
-    }, function (err, canvas) {
-      if (err) {
-        slot.textContent = 'Could not render QR';
-        return;
-      }
-      slot.appendChild(canvas);
-    });
-    eyebrow.textContent = flow.eyebrow;
-    headline.innerHTML = flow.headline;
-    subhead.textContent = flow.subhead;
-    instruction.innerHTML = flow.instruction;
-    btnCall.setAttribute('aria-pressed', String(flowKey === 'call'));
-    btnBook.setAttribute('aria-pressed', String(flowKey === 'book'));
+  function show(which) {
+    var call = which === 'call';
+    flowCall.classList.toggle('active', call);
+    flowBook.classList.toggle('active', !call);
+    btnCall.setAttribute('aria-pressed', String(call));
+    btnBook.setAttribute('aria-pressed', String(!call));
   }
+  btnCall.addEventListener('click', function () { show('call'); });
+  btnBook.addEventListener('click', function () { show('book'); });
 
-  btnCall.addEventListener('click', function () { render('call'); });
-  btnBook.addEventListener('click', function () { render('book'); });
-
-  render('call');
-
-  window.addEventListener('resize', function () {
-    var pressed = btnBook.getAttribute('aria-pressed') === 'true' ? 'book' : 'call';
-    render(pressed);
-  });
-
-  // Keep the screen awake while the booth page is open (best-effort).
   if ('wakeLock' in navigator) {
     var lock = null;
+    function grab() {
+      navigator.wakeLock.request('screen').then(function (w) { lock = w; }).catch(function () {});
+    }
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'visible' && !lock) {
-        navigator.wakeLock.request('screen').then(function (w) { lock = w; }).catch(function () {});
-      }
+      if (document.visibilityState === 'visible') grab();
     });
-    navigator.wakeLock.request('screen').then(function (w) { lock = w; }).catch(function () {});
+    grab();
   }
 })();
 </script>
