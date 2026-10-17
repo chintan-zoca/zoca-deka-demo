@@ -146,7 +146,6 @@
   }
   .top { animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both; }
   nav.toggle { animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both; }
-  .footnote { animation: riseIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both; }
 
   .headline {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -245,7 +244,14 @@
     color: transparent;
     white-space: nowrap;
   }
-  .cta-sub { font-size: clamp(13px, 3.7vw, 15px); font-weight: 500; color: rgba(255,243,233,0.75); text-align: center; }
+  .stats-note {
+    margin-top: 6px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: rgba(255,243,233,0.5);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
 
 
   .toggle {
@@ -285,14 +291,6 @@
   }
   .icon { width: 17px; height: 17px; flex: none; }
 
-  .footnote {
-    margin-top: 10px;
-    font-size: 11.5px;
-    font-weight: 500;
-    color: rgba(255,243,233,0.45);
-    text-align: center;
-    letter-spacing: 0.03em;
-  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -327,7 +325,7 @@
 </defs>
 </svg>
 
-    <div class="stats" aria-label="Real results from four Deka Lash studios">
+    <div class="stats" aria-label="Real results from three Deka Lash locations over the last 10 weeks">
       <div class="stat"><b>$35,291</b><span>booked through Zoca in 10 weeks</span></div>
       <div class="stat"><b>2 of 3</b><span>calls handled fully by the AI</span></div>
       <div class="stat"><b>2.2x</b><span>more website visitors who book</span></div>
@@ -337,6 +335,7 @@
       <div class="stat"><b>62</b><span>calls answered after hours</span></div>
       <div class="stat"><b>+183%</b><span>call taps from Google search</span></div>
     </div>
+    <div class="stats-note">Across 3 Deka Lash locations · last 10 weeks</div>
   </header>
 
   <main>
@@ -349,7 +348,6 @@
       </div>
       <div class="cta">
         <div class="cta-main">Scan to call <strong>(808) 556-4469</strong></div>
-        <div class="cta-sub">Ask to book a lash fill, then watch the iPad.</div>
       </div>
     </section>
 
@@ -362,7 +360,6 @@
       </div>
       <div class="cta">
         <div class="cta-main">Scan to open the <strong>booking site</strong></div>
-        <div class="cta-sub">Pick a service, enter your number, then close the tab.</div>
       </div>
     </section>
   </main>
@@ -378,7 +375,6 @@
     </button>
   </nav>
 
-  <p class="footnote">Sandbox demo · nothing here creates a real appointment</p>
 
 <script>
 (function () {
