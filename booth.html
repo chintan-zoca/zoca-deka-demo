@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#6C4CF5" />
+<title>Zoca Front Desk — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --white: #FFFFFF;
+    --gray-100: #F4F4F5;
+    --gray-200: #E7E7E7;
+    --gray-400: #B2B2B2;
+    --gray-600: #666666;
+    --gray-900: #222222;
+    --violet-100: #FAF8FF;
+    --violet-200: #EEE7FF;
+    --violet-600: #6C4CF5;
+    --violet-700: #5A3BE8;
+    --violet-900: #24185F;
+    --neutral-200: #E7E3F3;
+    --radius-card: 16px;
+    --radius-control: 8px;
+    --shadow-sm: 0 1px 2px rgba(23,24,95,0.06), 0 1px 1px rgba(23,24,95,0.04);
+    --shadow-md: 0 8px 24px rgba(36,24,95,0.08), 0 2px 6px rgba(36,24,95,0.06);
+    --shadow-ai: -12px 12px 40px 2px rgba(139,109,255,0.14), 12px -12px 40px 2px rgba(255,139,192,0.14);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--violet-100);
+    color: var(--gray-900);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .brand-mark {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    color: var(--violet-600);
+    text-transform: uppercase;
+  }
+  .brand-sub {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--gray-600);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px 0;
+  }
+  .headline-wrap {
+    text-align: center;
+    max-width: 440px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--violet-700);
+    background: var(--violet-200);
+    padding: 6px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .headline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--gray-900);
+    margin: 0;
+  }
+  .headline em {
+    font-style: normal;
+    color: var(--violet-600);
+  }
+  .subhead {
+    margin-top: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+  .qr-card {
+    width: min(78vw, 360px);
+    aspect-ratio: 1;
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+  .qr-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: var(--shadow-ai);
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+  .qr-card.is-active::before { opacity: 1; }
+  .qr-slot {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+  .qr-slot svg, .qr-slot canvas { width: 100%; height: auto; max-width: 100%; max-height: 100%; display: block; }
+  .instruction {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--gray-600);
+    text-align: center;
+  }
+  .toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    width: min(90vw, 420px);
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  .toggle button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--gray-900);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    padding: 12px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 200ms ease, color 200ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+  }
+  .toggle button[aria-pressed="true"] {
+    background: var(--violet-600);
+    color: var(--white);
+  }
+  .toggle button:focus-visible {
+    outline: 2px solid var(--violet-600);
+    outline-offset: 2px;
+  }
+  .footnote {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--gray-400);
+    text-align: center;
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+  /* icons */
+  .icon { width: 16px; height: 16px; stroke-width: 2; }
+  @media (min-width: 768px) {
+    .headline { font-size: 36px; }
+    .qr-card { width: min(60vw, 420px); }
+  }
+</style>
+</head>
+<body>
+  <header class="brand">
+    <div class="brand-mark">Zoca</div>
+    <div class="brand-sub">Front Desk · Live Demo</div>
+  </header>
+
+  <main>
+    <div class="headline-wrap">
+      <span class="eyebrow" id="eyebrow">Flow A</span>
+      <h1 class="headline" id="headline"><em>Call</em> our Deka receptionist</h1>
+      <p class="subhead" id="subhead">Point your phone's camera at the code to try the AI front desk.</p>
+    </div>
+
+    <div class="qr-card is-active">
+      <div class="qr-slot" id="qr-slot" aria-live="polite"></div>
+    </div>
+
+    <p class="instruction" id="instruction">Scan to dial <strong>+1 808-556-4469</strong></p>
+  </main>
+
+  <nav class="toggle" role="tablist" aria-label="Pick a demo flow">
+    <button type="button" id="btn-call" role="tab" aria-pressed="true" aria-controls="qr-slot">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Call the agent
+    </button>
+    <button type="button" id="btn-book" role="tab" aria-pressed="false" aria-controls="qr-slot">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Try the booking site
+    </button>
+  </nav>
+
+  <p class="footnote">Scanning this does not create a real appointment · Zoca sandbox</p>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+(function () {
+  var slot = document.getElementById('qr-slot');
+  var headline = document.getElementById('headline');
+  var subhead = document.getElementById('subhead');
+  var eyebrow = document.getElementById('eyebrow');
+  var instruction = document.getElementById('instruction');
+  var btnCall = document.getElementById('btn-call');
+  var btnBook = document.getElementById('btn-book');
+
+  var FLOWS = {
+    call: {
+      value: 'tel:+18085564469',
+      eyebrow: 'Flow A · Voice',
+      headline: '<em>Call</em> our Deka receptionist',
+      subhead: "Your phone opens the dialer. Tap call. Say you'd like to book a lash fill. Watch the iPad.",
+      instruction: 'Scan to dial <strong>+1 808-556-4469</strong>'
+    },
+    book: {
+      value: 'https://chintan-zoca.github.io/zoca-deka-demo/',
+      eyebrow: 'Flow B · Abandoned cart',
+      headline: '<em>Try</em> the booking site',
+      subhead: "Open our mock Deka Green Tree site. Pick a service, enter your number, then close the tab.",
+      instruction: 'Scan to open <strong>chintan-zoca.github.io/zoca-deka-demo</strong>'
+    }
+  };
+
+  function render(flowKey) {
+    var flow = FLOWS[flowKey];
+    slot.innerHTML = '';
+    var size = Math.min(slot.clientWidth, slot.clientHeight) || 320;
+    QRCode.toCanvas(flow.value, {
+      width: size,
+      margin: 1,
+      errorCorrectionLevel: 'M',
+      color: { dark: '#171717', light: '#FFFFFF' }
+    }, function (err, canvas) {
+      if (err) {
+        slot.textContent = 'Could not render QR';
+        return;
+      }
+      slot.appendChild(canvas);
+    });
+    eyebrow.textContent = flow.eyebrow;
+    headline.innerHTML = flow.headline;
+    subhead.textContent = flow.subhead;
+    instruction.innerHTML = flow.instruction;
+    btnCall.setAttribute('aria-pressed', String(flowKey === 'call'));
+    btnBook.setAttribute('aria-pressed', String(flowKey === 'book'));
+  }
+
+  btnCall.addEventListener('click', function () { render('call'); });
+  btnBook.addEventListener('click', function () { render('book'); });
+
+  render('call');
+
+  window.addEventListener('resize', function () {
+    var pressed = btnBook.getAttribute('aria-pressed') === 'true' ? 'book' : 'call';
+    render(pressed);
+  });
+
+  // Keep the screen awake while the booth page is open (best-effort).
+  if ('wakeLock' in navigator) {
+    var lock = null;
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible' && !lock) {
+        navigator.wakeLock.request('screen').then(function (w) { lock = w; }).catch(function () {});
+      }
+    });
+    navigator.wakeLock.request('screen').then(function (w) { lock = w; }).catch(function () {});
+  }
+})();
+</script>
+</body>
+</html>
