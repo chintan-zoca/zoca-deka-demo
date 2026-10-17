@@ -25,7 +25,7 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: var(--black);
+    background: var(--maroon);
     color: var(--warm);
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.01em;
@@ -91,9 +91,37 @@
     color: rgba(255, 243, 233, 0.78);
     text-align: center;
   }
-  .alt strong { font-weight: 700; color: var(--warm); white-space: nowrap; }
+  .alt strong {
+    font-weight: 700;
+    color: var(--black);
+    background: var(--yellow);
+    padding: 3px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
 
   .qr-wrap { position: relative; }
+  .qr-wrap::before,
+  .qr-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    border: 2.5px solid var(--magenta);
+    opacity: 0;
+    pointer-events: none;
+    animation: ring 5s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+  }
+  .qr-wrap::after {
+    border-color: var(--violet);
+    animation-delay: 2.5s;
+  }
+  @keyframes ring {
+    0% { transform: scale(1.03); opacity: 0; }
+    10% { opacity: 0.8; }
+    55% { transform: scale(1.22); opacity: 0; }
+    100% { transform: scale(1.22); opacity: 0; }
+  }
   .qr-card {
     position: relative;
     z-index: 1;
