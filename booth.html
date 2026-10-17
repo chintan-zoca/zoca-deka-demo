@@ -41,6 +41,34 @@
     padding: max(24px, env(safe-area-inset-top)) 20px max(16px, env(safe-area-inset-bottom));
   }
 
+  .bg-blob {
+    position: fixed;
+    width: 60vmin;
+    aspect-ratio: 1;
+    border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
+    filter: blur(60px);
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 600ms ease;
+  }
+  .bg-blob.b1 { top: -22vmin; left: -20vmin; background: radial-gradient(closest-side, var(--ai-pink), transparent 72%); animation: drift1 24s ease-in-out infinite alternate; }
+  .bg-blob.b2 { top: 32%; right: -26vmin; background: radial-gradient(closest-side, var(--ai-purple), transparent 72%); animation: drift2 30s ease-in-out infinite alternate; }
+  .bg-blob.b3 { bottom: -24vmin; left: -10vmin; background: radial-gradient(closest-side, var(--ai-violet), transparent 72%); animation: drift3 36s ease-in-out infinite alternate; }
+  @keyframes drift1 {
+    from { transform: translate(0, 0) scale(1) rotate(0deg); }
+    to { transform: translate(6vmin, 5vmin) scale(1.18) rotate(30deg); }
+  }
+  @keyframes drift2 {
+    from { transform: translate(0, 0) scale(1.1) rotate(0deg); }
+    to { transform: translate(-7vmin, -4vmin) scale(0.95) rotate(-24deg); }
+  }
+  @keyframes drift3 {
+    from { transform: translate(0, 0) scale(1) rotate(0deg); }
+    to { transform: translate(5vmin, -6vmin) scale(1.15) rotate(20deg); }
+  }
+  body.pulse .bg-blob { opacity: 0.52; }
+
   .top {
     display: flex;
     flex-direction: column;
@@ -159,8 +187,8 @@
     opacity: 0.6;
     z-index: 0;
     animation:
-      blobSpin 36s linear infinite,
-      blobMorph 13s ease-in-out infinite alternate,
+      blobSpin 16s linear infinite,
+      blobMorph 9s ease-in-out infinite alternate,
       glowPulse 9s ease-in-out infinite;
   }
   @keyframes blobSpin {
@@ -275,10 +303,14 @@
     .stat { animation: none; opacity: 0; }
     .stat:first-child { opacity: 1; }
     .qr-glow { animation: none; opacity: 0.55; }
+    .bg-blob { animation: none; }
   }
 </style>
 </head>
 <body>
+  <div class="bg-blob b1" aria-hidden="true"></div>
+  <div class="bg-blob b2" aria-hidden="true"></div>
+  <div class="bg-blob b3" aria-hidden="true"></div>
   <header class="top">
     <svg class="logo" role="img" aria-label="Zoca" width="140" height="35" viewBox="0 0 140 35" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1414_2)">
@@ -355,12 +387,16 @@
   var flowCall = document.getElementById('flow-call');
   var flowBook = document.getElementById('flow-book');
 
+  var pulseT = null;
   function show(which) {
     var call = which === 'call';
     flowCall.classList.toggle('active', call);
     flowBook.classList.toggle('active', !call);
     btnCall.setAttribute('aria-pressed', String(call));
     btnBook.setAttribute('aria-pressed', String(!call));
+    document.body.classList.add('pulse');
+    clearTimeout(pulseT);
+    pulseT = setTimeout(function () { document.body.classList.remove('pulse'); }, 700);
   }
   btnCall.addEventListener('click', function () { show('call'); });
   btnBook.addEventListener('click', function () { show('book'); });
